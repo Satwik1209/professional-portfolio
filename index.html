@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satwik Chunduru — DevOps, Cloud Platform & Security Engineer</title>
+  <meta name="description" content="Portfolio of Satwik Chunduru. DevOps Engineer at ANZ Banking Group, IEEE-published AI researcher, and Cyber Security graduate (8.96 GPA).">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ink: {
+              950: '#090a0d',
+              900: '#0e1015',
+              850: '#13151b',
+              800: '#181b23',
+              700: '#232733',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::selection {
+      background-color: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+    }
+    body {
+      background-color: #090a0d;
+      color: #e4e4e7;
+      font-family: 'Inter', -apple-system, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    .border-subtle {
+      border-color: rgba(255, 255, 255, 0.07);
+    }
+    .border-subtle-hover:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .surface-card {
+      background: #0e1015;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .surface-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: #11141b;
+    }
+    .hairline-b {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  </style>
+</head>
+<body class="bg-ink-950 text-zinc-300 antialiased min-h-screen relative">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-200 pointer-events-none flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-200 shadow-xl text-xs font-mono">
+    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+    <span id="toast-msg">Email copied to clipboard</span>
+  </div>
+
+  <!-- NAVIGATION BAR (Minimalist & Editorial) -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-ink-950/80 hairline-b">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      
+      <!-- Identity -->
+      <a href="#about" class="flex items-center gap-2.5 group">
+        <span class="w-2 h-2 rounded-full bg-zinc-400 group-hover:bg-white transition-colors"></span>
+        <span class="font-medium text-xs tracking-tight text-zinc-200 group-hover:text-white transition-colors">
+          Satwik Chunduru
+        </span>
+        <span class="text-zinc-500 text-xs hidden sm:inline">/</span>
+        <span class="text-zinc-500 text-xs font-mono hidden sm:inline">DevOps @ ANZ</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs text-zinc-400">
+        <a href="#experience" class="hover:text-zinc-100 transition-colors">Experience</a>
+        <a href="#case-study" class="hover:text-zinc-100 transition-colors">Case Study</a>
+        <a href="#publication" class="hover:text-zinc-100 transition-colors">Research</a>
+        <a href="#stack" class="hover:text-zinc-100 transition-colors">Stack</a>
+        <a href="#education" class="hover:text-zinc-100 transition-colors">Background</a>
+        <a href="#contact" class="hover:text-zinc-100 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-2.5">
+        <a href="https://github.com/Satwik1209" target="_blank" rel="noopener noreferrer" class="p-1.5 rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all" title="GitHub Profile">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="resume.pdf" download="Satwik_Chunduru_Resume.pdf" class="px-2.5 py-1 text-xs font-mono rounded-md bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 text-zinc-200 hover:text-white transition-all flex items-center gap-1.5">
+          <i data-lucide="download" class="w-3 h-3 text-zinc-400"></i>
+          <span>CV</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 pt-28 pb-20">
+
+    <!-- HERO SECTION (Quiet Confidence, High-Craft Editorial) -->
+    <section id="about" class="pb-16 pt-4 hairline-b">
+      
+      <!-- Status Indicator -->
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        <span>Bengaluru, India · DevOps & Cloud Security</span>
+      </div>
+
+      <!-- Core Headline -->
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-zinc-100 leading-[1.15] mb-5">
+        Engineering reliable cloud infrastructure, container platforms, and resilient CI/CD systems.
+      </h1>
+
+      <!-- Bio / Narrative Pitch -->
+      <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mb-8">
+        I am <span class="text-zinc-100 font-medium">Satwik</span>. Currently engineering platform and migration infrastructure at <span class="text-zinc-200 font-medium">Australia and New Zealand Banking Group (ANZ)</span>, where I led the technical migration of 600+ enterprise repositories to GitHub Enterprise Cloud with zero data loss.
+      </p>
+      
+      <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mb-8 -mt-4">
+        Previously interned at <span class="text-zinc-200 font-medium">Continental</span> benchmarking automotive cryptographic security. Co-authored <span class="text-zinc-200 font-medium">IEEE-published research</span> on AI deepfake detection, with a Cyber Security degree from Dayananda Sagar University (<span class="font-mono text-zinc-300">GPA 8.96 / 10</span>).
+      </p>
+
+      <!-- Clean Action Buttons -->
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="mailto:satwikchunduru10@gmail.com" class="px-4 py-2 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-medium text-xs transition-all shadow-sm flex items-center gap-2">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          <span>Get in Touch</span>
+        </a>
+        <button onclick="copyEmail()" class="px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-zinc-300 font-medium text-xs transition-all flex items-center gap-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-400"></i>
+          <span>Copy Email</span>
+        </button>
+        <a href="#case-study" class="px-3.5 py-2 rounded-lg bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 font-medium text-xs transition-all flex items-center gap-1.5">
+          <span>Read ANZ Case Study</span>
+          <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+      <!-- High-Signal Proof Metrics (Restrained & Minimalist) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-10 mt-10 hairline-b pb-8">
+        <div>
+          <div class="font-mono text-xl sm:text-2xl font-semibold text-zinc-100">600+</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5 uppercase tracking-wider font-mono">Repos Migrated</div>
+          <div class="text-xs text-zinc-400 mt-1">ANZ Banking Group</div>
+        </div>
+        <div>
+          <div class="font-mono text-xl sm:text-2xl font-semibold text-zinc-100">9 Squads</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5 uppercase tracking-wider font-mono">CI/CD Scope</div>
+          <div class="text-xs text-zinc-400 mt-1">GHEC Migration Parity</div>
+        </div>
+        <div>
+          <div class="font-mono text-xl sm:text-2xl font-semibold text-zinc-100">IEEE Author</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5 uppercase tracking-wider font-mono">Published 2026</div>
+          <div class="text-xs text-zinc-400 mt-1">Deepfake Detection Survey</div>
+        </div>
+        <div>
+          <div class="font-mono text-xl sm:text-2xl font-semibold text-zinc-100">8.96 <span class="text-xs text-zinc-500 font-normal">/ 10</span></div>
+          <div class="text-[11px] text-zinc-500 mt-0.5 uppercase tracking-wider font-mono">Academic GPA</div>
+          <div class="text-xs text-zinc-400 mt-1">B.Tech Cyber Security</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK EXPERIENCE -->
+    <section id="experience" class="py-14 hairline-b">
+      <div class="flex items-baseline justify-between mb-8">
+        <div>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-zinc-500">01 / Experience</h2>
+          <div class="text-lg font-semibold text-zinc-100 mt-0.5">Where I've built</div>
+        </div>
+        <span class="text-xs font-mono text-zinc-500">2024 — Present</span>
+      </div>
+
+      <div class="space-y-10">
+
+        <!-- Role 1: ANZ -->
+        <div class="group">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+            <div>
+              <h3 class="text-base font-semibold text-zinc-100 group-hover:text-white transition-colors">
+                DevOps Engineer Apprentice
+              </h3>
+              <div class="text-xs font-mono text-zinc-400">
+                Australia and New Zealand Banking Group (ANZ)
+              </div>
+            </div>
+            <span class="text-xs font-mono text-zinc-500 shrink-0">
+              Jul 2025 — Present · Bengaluru
+            </span>
+          </div>
+
+          <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+            Engineered enterprise cloud migration tooling, modern CI/CD automation, and secure Kubernetes deployment workflows within core banking platform engineering.
+          </p>
+
+          <ul class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+            <li class="flex items-start gap-2.5">
+              <span class="text-zinc-600 font-mono text-[11px] mt-0.5">—</span>
+              <span><strong class="text-zinc-200">600+ Enterprise Repository Migration:</strong> Led the programmatic cutover from GitHub Enterprise Server (GHES) to GitHub Enterprise Cloud (GHEC) across 9 engineering squads. Automated pre-flight validation and post-cutover parity via Bash scripts and GitHub REST APIs, preserving complete commit DAGs, tags, and branch protection policies with zero data loss.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-zinc-600 font-mono text-[11px] mt-0.5">—</span>
+              <span><strong class="text-zinc-200">CI/CD Modernization:</strong> Re-architected legacy Codefresh and uDeploy pipelines into modular, reusable, config-driven GitHub Actions workflows. Externalized environment parameters into structured <code class="text-[11px] font-mono text-zinc-200 bg-zinc-800/80 px-1.5 py-0.5 rounded">.config</code> files across DEV, SIT, QA, and PROD stages for AU and NZ production clusters.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-zinc-600 font-mono text-[11px] mt-0.5">—</span>
+              <span><strong class="text-zinc-200">GKE & Zero-Trust Workload Identity:</strong> Built automated deployment workflows on Google Kubernetes Engine leveraging CDAP authentication, Workload Identity service account impersonation (eliminating static credentials), and automated <code class="text-[11px] font-mono text-zinc-200 bg-zinc-800/80 px-1.5 py-0.5 rounded">kubectl</code> rollout health checks across 4 microservices.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-zinc-600 font-mono text-[11px] mt-0.5">—</span>
+              <span><strong class="text-zinc-200">DevSecOps & Artifact Governance:</strong> Standardized Docker multi-stage builds, Java Maven packaging, and JFrog Artifactory binary publishing integrated with GitHub Secret Scanning and Dependabot push protection.</span>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-zinc-900 font-mono text-[11px]">
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">GitHub Actions</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Kubernetes (GKE)</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">GHEC Migration</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Workload Identity</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">JFrog Artifactory</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Docker</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Bash / REST API</span>
+          </div>
+        </div>
+
+        <!-- Role 2: Continental -->
+        <div class="group">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+            <div>
+              <h3 class="text-base font-semibold text-zinc-100 group-hover:text-white transition-colors">
+                Student Intern — Autonomous Mobility
+              </h3>
+              <div class="text-xs font-mono text-zinc-400">
+                Continental Automotive Components
+              </div>
+            </div>
+            <span class="text-xs font-mono text-zinc-500 shrink-0">
+              Aug 2024 — Nov 2024 · Bengaluru
+            </span>
+          </div>
+
+          <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+            Automotive embedded systems security, cryptographic benchmarking on vehicle microcontrollers, and engineering compliance automation.
+          </p>
+
+          <ul class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+            <li class="flex items-start gap-2.5">
+              <span class="text-zinc-600 font-mono text-[11px] mt-0.5">—</span>
+              <span><strong class="text-zinc-200">Security Requirements Management Platform:</strong> Built an automated Python and Power BI management tool to ingest, categorize, prioritize, and monitor cyber security compliance specifications across vehicle ECU development modules.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-zinc-600 font-mono text-[11px] mt-0.5">—</span>
+              <span><strong class="text-zinc-200">Cryptographic Benchmarking (AES vs. RSA):</strong> Conducted rigorous empirical benchmarking analyzing symmetric AES-256 vs. asymmetric RSA-2048 encryption throughput, key generation latency, and memory utilization on vehicle microcontroller hardware.</span>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-zinc-900 font-mono text-[11px]">
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Python</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Power BI</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">AES-256 / RSA-2048</span>
+            <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">Embedded ECU Security</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE CASE STUDY (Clean Engineering Whitepaper Format) -->
+    <section id="case-study" class="py-14 hairline-b">
+      <div class="flex items-baseline justify-between mb-8">
+        <div>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-zinc-500">02 / Architecture Case Study</h2>
+          <div class="text-lg font-semibold text-zinc-100 mt-0.5">600+ Repo GHES → GHEC Cloud Modernization</div>
+        </div>
+        <span class="text-xs font-mono text-zinc-500">Banking Scale</span>
+      </div>
+
+      <div class="surface-card rounded-xl p-6 sm:p-8">
+        
+        <!-- Context & Problem -->
+        <div class="mb-8">
+          <h3 class="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2">The Operational Challenge</h3>
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+            ANZ's engineering squads operated across on-premises GitHub Enterprise Server instances with fragmented deployment scripts (Codefresh, uDeploy) and manual gating. Transitioning 600+ repositories into GitHub Enterprise Cloud required strict zero-downtime execution, cryptographic commit history preservation, and immediate compliance with bank-wide security standards.
+          </p>
+        </div>
+
+        <!-- 3-Pillar Architecture Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-zinc-800/80">
+          
+          <div>
+            <div class="text-xs font-mono font-semibold text-zinc-200 mb-1.5 flex items-center gap-2">
+              <span class="text-zinc-500">01.</span> Pre-Flight Auditing
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Programmed automated Bash and REST API crawlers to inventory repo sizes, LFS assets, branch protections, and webhook dependencies. Generated automated delta reports prior to maintenance windows.
+            </p>
+          </div>
+
+          <div>
+            <div class="text-xs font-mono font-semibold text-zinc-200 mb-1.5 flex items-center gap-2">
+              <span class="text-zinc-500">02.</span> Pipeline Standardization
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Replaced heterogeneous deployment scripts with reusable GitHub Actions composite workflows. Externalized environment configurations (<code class="text-[11px] font-mono text-zinc-200">.config</code>) across DEV, SIT, QA, and PROD clusters.
+            </p>
+          </div>
+
+          <div>
+            <div class="text-xs font-mono font-semibold text-zinc-200 mb-1.5 flex items-center gap-2">
+              <span class="text-zinc-500">03.</span> Zero-Trust GKE Delivery
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Eliminated long-lived service account JSON keys by configuring GCP Workload Identity federation with CDAP authentication. Multi-microservice rollouts verified via automated health probe validation.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Structural Diagram (Minimalist Schematic) -->
+        <div class="mt-8 pt-6 border-t border-zinc-800/80">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-zinc-500 mb-3">
+            Migration & Delivery Pipeline Schematic
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs font-mono">
+            <div class="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+              <div class="text-[10px] text-zinc-500">SOURCE</div>
+              <div class="text-zinc-200 font-medium mt-0.5">GHES On-Prem</div>
+              <div class="text-[11px] text-zinc-400 font-sans mt-1">600+ repos, legacy tooling</div>
+            </div>
+            <div class="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+              <div class="text-[10px] text-zinc-500">CUTOVER</div>
+              <div class="text-zinc-200 font-medium mt-0.5">Automated Sync</div>
+              <div class="text-[11px] text-zinc-400 font-sans mt-1">API-driven validation</div>
+            </div>
+            <div class="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+              <div class="text-[10px] text-zinc-500">REGISTRY</div>
+              <div class="text-zinc-200 font-medium mt-0.5">JFrog + Actions</div>
+              <div class="text-[11px] text-zinc-400 font-sans mt-1">Push protection & scan</div>
+            </div>
+            <div class="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+              <div class="text-[10px] text-zinc-500">DESTINATION</div>
+              <div class="text-zinc-200 font-medium mt-0.5">GKE AU / NZ</div>
+              <div class="text-[11px] text-zinc-400 font-sans mt-1">Workload Identity tokens</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PEER-REVIEWED RESEARCH (IEEE) -->
+    <section id="publication" class="py-14 hairline-b">
+      <div class="flex items-baseline justify-between mb-8">
+        <div>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-zinc-500">03 / Peer-Reviewed Research</h2>
+          <div class="text-lg font-semibold text-zinc-100 mt-0.5">IEEE Conference Publication</div>
+        </div>
+        <span class="text-xs font-mono text-zinc-500">Published March 2026</span>
+      </div>
+
+      <div class="surface-card rounded-xl p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-3">
+          <div class="text-xs font-mono text-zinc-400">IEEE ICCIST 2026 · Conference Proceedings</div>
+          <span class="text-xs font-mono text-zinc-300 font-medium">Peer-Reviewed Survey & Analysis</span>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-semibold text-zinc-100 leading-snug mb-3">
+          "Deepfake Image Content Detections using AI Algorithms: A State-of-the-Art Survey and Analysis"
+        </h3>
+
+        <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6">
+          Co-authored peer-reviewed academic research surveying spatial and frequency-domain feature extraction techniques for identifying synthetic facial manipulation. Evaluated architectural approaches across <span class="text-zinc-100 font-medium">EfficientNet</span>, <span class="text-zinc-100 font-medium">ResNet</span>, and temporal models, comparing detection efficacy, artifact boundary sensitivities, and computational trade-offs across contemporary benchmark datasets.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-zinc-800/80 font-mono text-xs">
+          <div>
+            <div class="text-[10px] text-zinc-500 uppercase">Focus Area</div>
+            <div class="text-zinc-200 mt-0.5">AI Security & Media Forensics</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-zinc-500 uppercase">Core Methodologies</div>
+            <div class="text-zinc-200 mt-0.5">CNN, EfficientNet, ResNet</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-zinc-500 uppercase">Indexing</div>
+            <div class="text-zinc-200 mt-0.5">IEEE Xplore Digital Library</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL ARSENAL (Refined & Honest Category Matrix) -->
+    <section id="stack" class="py-14 hairline-b">
+      <div class="flex items-baseline justify-between mb-8">
+        <div>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-zinc-500">04 / Technical Stack</h2>
+          <div class="text-lg font-semibold text-zinc-100 mt-0.5">Core Tooling & Platforms</div>
+        </div>
+        <span class="text-xs font-mono text-zinc-500">Production Verified</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-xs">
+        
+        <div>
+          <div class="font-mono text-zinc-200 font-medium mb-3 pb-2 border-b border-zinc-800">
+            Cloud & Containers
+          </div>
+          <ul class="space-y-1.5 text-zinc-400 font-mono text-[11px]">
+            <li>Kubernetes (GKE)</li>
+            <li>Docker Multi-stage</li>
+            <li>kubectl / K8s manifests</li>
+            <li>Google Cloud Platform</li>
+            <li>AWS Foundations</li>
+            <li>Workload Identity</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="font-mono text-zinc-200 font-medium mb-3 pb-2 border-b border-zinc-800">
+            CI/CD & Repository
+          </div>
+          <ul class="space-y-1.5 text-zinc-400 font-mono text-[11px]">
+            <li>GitHub Actions (Composite)</li>
+            <li>GHEC / GHES Migration</li>
+            <li>JFrog Artifactory</li>
+            <li>Java Maven</li>
+            <li>GitHub REST API</li>
+            <li>Codefresh / uDeploy (Legacy)</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="font-mono text-zinc-200 font-medium mb-3 pb-2 border-b border-zinc-800">
+            Security & Compliance
+          </div>
+          <ul class="space-y-1.5 text-zinc-400 font-mono text-[11px]">
+            <li>GitHub Secret Scanning</li>
+            <li>Dependabot Push Protection</li>
+            <li>Black Duck SCA</li>
+            <li>Checkmarx SAST</li>
+            <li>Twistlock Container Security</li>
+            <li>AES / RSA Cryptography</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="font-mono text-zinc-200 font-medium mb-3 pb-2 border-b border-zinc-800">
+            Languages & Core
+          </div>
+          <ul class="space-y-1.5 text-zinc-400 font-mono text-[11px]">
+            <li>Bash / Shell Scripting</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>SQL</li>
+            <li>C / C++</li>
+            <li>Linux / POSIX Shell</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <section id="education" class="py-14 hairline-b">
+      <div class="flex items-baseline justify-between mb-8">
+        <div>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-zinc-500">05 / Background</h2>
+          <div class="text-lg font-semibold text-zinc-100 mt-0.5">Education & Credentials</div>
+        </div>
+        <span class="text-xs font-mono text-zinc-500">2021 — 2025</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <div class="surface-card rounded-xl p-5">
+          <div class="text-[10px] font-mono text-zinc-500">2021 — 2025 · BENGALURU</div>
+          <h3 class="text-sm font-semibold text-zinc-100 mt-1">Dayananda Sagar University</h3>
+          <p class="text-xs text-zinc-400 mt-0.5">B.Tech in Computer Science & Engineering (Cyber Security)</p>
+          <div class="mt-4 font-mono text-xs text-emerald-400">
+            GPA: 8.96 / 10
+          </div>
+        </div>
+
+        <div class="surface-card rounded-xl p-5">
+          <div class="text-[10px] font-mono text-zinc-500">PROFESSIONAL CREDENTIALS</div>
+          <h3 class="text-sm font-semibold text-zinc-100 mt-1">ServiceNow Certifications</h3>
+          <p class="text-xs text-zinc-400 mt-0.5">Enterprise application & systems administration</p>
+          <div class="mt-4 space-y-1 font-mono text-xs text-zinc-300">
+            <div>✓ Certified Application Developer (CAD)</div>
+            <div>✓ Certified System Administrator (CSA)</div>
+          </div>
+        </div>
+
+        <div class="surface-card rounded-xl p-5">
+          <div class="text-[10px] font-mono text-zinc-500">PRE-UNIVERSITY & HIGH SCHOOL</div>
+          <h3 class="text-sm font-semibold text-zinc-100 mt-1">Academic Track Record</h3>
+          <p class="text-xs text-zinc-400 mt-0.5">Consistent mathematical & scientific foundation</p>
+          <div class="mt-4 space-y-1 font-mono text-xs text-zinc-300">
+            <div>Class XII (Narayana PU): <span class="text-zinc-100 font-medium">92.3%</span></div>
+            <div>Class X (Sri Chaitanya): <span class="text-zinc-100 font-medium">93.8%</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact" class="pt-16 pb-12">
+      <div class="surface-card rounded-2xl p-8 sm:p-10 text-center flex flex-col items-center">
+        <h2 class="text-2xl sm:text-3xl font-semibold text-zinc-100 tracking-tight mb-2">
+          Let's talk cloud platforms.
+        </h2>
+        <p class="text-xs sm:text-sm text-zinc-400 max-w-md mb-6 leading-relaxed">
+          Open to enterprise DevOps, Cloud Platform, and DevSecOps engineering opportunities. Direct outreach via email is preferred.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="mailto:satwikchunduru10@gmail.com" class="px-4 py-2 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-medium text-xs transition-all flex items-center gap-2">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+            <span>satwikchunduru10@gmail.com</span>
+          </a>
+          <button onclick="copyEmail()" class="px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-medium text-xs transition-all flex items-center gap-1.5">
+            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-400"></i>
+            <span>Copy Address</span>
+          </button>
+          <a href="https://github.com/Satwik1209" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-medium text-xs transition-all flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 fill-current text-zinc-400" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="tel:+916362661224" class="px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-medium text-xs transition-all flex items-center gap-1.5">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-zinc-400"></i>
+            <span>+91 6362661224</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Minimalist Colophon -->
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 font-mono gap-2">
+        <div>© 2026 Satwik Chunduru · All rights reserved</div>
+        <div>Bengaluru, India · 12.97° N, 77.59° E</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    function copyEmail() {
+      navigator.clipboard.writeText('satwikchunduru10@gmail.com').then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>
