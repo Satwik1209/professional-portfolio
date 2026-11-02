@@ -327,10 +327,6 @@
             <i data-lucide="shield-check" class="w-4 h-4"></i>
             <span>2. Multi-Cloud OIDC Engine</span>
           </button>
-          <button onclick="switchTab('migration')" id="tab-migration" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all flex items-center gap-2 text-zinc-400 hover:text-white">
-            <i data-lucide="git-merge" class="w-4 h-4"></i>
-            <span>3. ANZ 600+ Cutover Pipeline</span>
-          </button>
         </div>
 
         <!-- TAB 1: GITOPS -->
@@ -426,37 +422,6 @@
                 Concurrent CI executions acquire distributed MD5 mutex lock before applying plans to encrypted S3 remote backend. Prevents state corruption.
               </p>
               <div class="text-[11px] text-zinc-500">Partition Key: LockID (String)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 3: ANZ MIGRATION -->
-        <div id="content-migration" class="space-y-5 hidden">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06]">
-            <div>
-              <h3 class="text-base font-bold text-white flex items-center gap-2">
-                <span>600+ Repo Cutover & GHEC Parity Engine</span>
-                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Production Banking</span>
-              </h3>
-              <p class="text-xs text-zinc-400 mt-0.5">Automated DAG verification, branch protection migration, and Artifactory publishing.</p>
-            </div>
-          </div>
-
-          <div class="p-5 rounded-xl bg-black/40 border border-white/[0.06] space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono text-zinc-300">Live Cutover Simulator:</span>
-              <button onclick="simulateMigration()" id="sim-btn" class="px-3.5 py-1.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs font-mono transition-all">
-                Run Simulation
-              </button>
-            </div>
-
-            <div class="w-full bg-zinc-800 rounded-full h-3 overflow-hidden">
-              <div id="sim-progress" class="bg-gradient-to-r from-cyan-400 to-emerald-400 h-3 rounded-full transition-all duration-300" style="width: 100%;"></div>
-            </div>
-
-            <div id="sim-status" class="text-xs font-mono text-emerald-400 flex items-center gap-2">
-              <i data-lucide="check-circle" class="w-4 h-4"></i>
-              <span>Status: 600 of 600 Repositories Programmatically Migrated · Zero DAG loss</span>
             </div>
           </div>
         </div>
@@ -913,7 +878,7 @@
 
     // Tab Switcher
     function switchTab(tabId) {
-      const tabs = ['gitops', 'multicloud', 'migration'];
+      const tabs = ['gitops', 'multicloud'];
       tabs.forEach(t => {
         const btn = document.getElementById(`tab-${t}`);
         const content = document.getElementById(`content-${t}`);
@@ -939,30 +904,6 @@
         latencyEl.innerText = jitterLatency;
       }
     }, 2000);
-
-    // Migration Simulator
-    function simulateMigration() {
-      const bar = document.getElementById('sim-progress');
-      const status = document.getElementById('sim-status');
-      const btn = document.getElementById('sim-btn');
-      
-      btn.disabled = true;
-      btn.innerText = 'Syncing...';
-      bar.style.width = '0%';
-      status.innerHTML = `<span class="text-cyan-400">Syncing repositories & commit trees...</span>`;
-
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += 20;
-        bar.style.width = `${progress}%`;
-        if (progress >= 100) {
-          clearInterval(interval);
-          status.innerHTML = `<span class="text-emerald-400">✔ 600/600 Repositories Programmatically Migrated · Zero DAG loss</span>`;
-          btn.disabled = false;
-          btn.innerText = 'Run Simulation';
-        }
-      }, 350);
-    }
 
     // Copy Email
     function copyEmail() {
