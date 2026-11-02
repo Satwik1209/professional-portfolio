@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Satwik Chunduru — DevOps & Cloud Platform Engineer</title>
-  <meta name="description" content="Personal portfolio of Satwik Chunduru. DevOps Engineer at ANZ Banking Group, IEEE-published researcher, and Cyber Security graduate (8.96 GPA).">
+  <meta name="description" content="Portfolio of Satwik Chunduru. DevOps Engineer at ANZ Banking Group, IEEE-published AI researcher, and Cyber Security graduate (8.96 GPA).">
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   
-  <!-- Fonts: Inter & JetBrains Mono -->
+  <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS & Lucide Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,12 +23,18 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            midnight: '#0b0f19',
-            cardBg: 'rgba(17, 24, 39, 0.6)',
+            cyber: {
+              bg: '#040711',
+              card: 'rgba(11, 18, 33, 0.75)',
+              cyan: '#00f2fe',
+              blue: '#4facfe',
+              emerald: '#10b981',
+              purple: '#8b5cf6',
+            }
           }
         }
       }
@@ -37,451 +43,928 @@
 
   <style>
     ::selection {
-      background-color: rgba(56, 189, 248, 0.25);
-      color: #38bdf8;
+      background-color: rgba(0, 242, 254, 0.25);
+      color: #00f2fe;
     }
     body {
-      background-color: #0b0f19;
-      color: #94a3b8;
-      font-family: 'Inter', -apple-system, sans-serif;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
+      background-color: #040711;
+      color: #cbd5e1;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Interactive Ambient Cursor Glow */
-    #spotlight {
+    /* 3D Canvas Background */
+    #canvas-network {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
+      z-index: 0;
       pointer-events: none;
+    }
+
+    /* Gradient Mesh Glow */
+    .radial-gradient-overlay {
+      position: fixed;
+      inset: 0;
       z-index: 1;
-      background: radial-gradient(600px circle at var(--mouse-x, 50vw) var(--mouse-y, 30vh), rgba(29, 78, 216, 0.12), transparent 80%);
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 10%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
     }
 
-    /* ScrollSpy Nav Indicators */
-    .nav-indicator {
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Glassmorphism Card Style */
+    .glass-tile {
+      background: rgba(10, 16, 30, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1.25rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
-    .nav-link.active .nav-indicator {
-      width: 3rem;
-      background-color: #e2e8f0;
-    }
-    .nav-link.active span {
-      color: #ffffff;
-      font-weight: 600;
+    .glass-tile:hover {
+      border-color: rgba(0, 242, 254, 0.35);
+      box-shadow: 0 16px 40px -10px rgba(0, 242, 254, 0.15), inset 0 0 20px rgba(0, 242, 254, 0.03);
+      transform: translateY(-3px);
     }
 
-    /* Card Hover Glow */
-    .project-card {
-      transition: all 0.25s ease;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Shimmer Text */
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #ffffff 0%, #00f2fe 50%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .project-card:hover {
-      background: rgba(30, 41, 59, 0.4);
-      border-color: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+
+    /* Interactive Live Tab */
+    .tab-btn.active {
+      background: rgba(0, 242, 254, 0.15);
+      color: #00f2fe;
+      border-color: rgba(0, 242, 254, 0.4);
     }
   </style>
 </head>
 <body class="relative">
 
-  <!-- Interactive Spotlight -->
-  <div id="spotlight"></div>
+  <!-- 3D INTERACTIVE PARTICLE & TOPOLOGY NETWORK CANVAS -->
+  <canvas id="canvas-network"></canvas>
+  <div class="radial-gradient-overlay"></div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed top-6 right-6 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900 border border-sky-500/30 text-white shadow-2xl text-xs font-mono">
-    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
-    <span id="toast-msg">Email copied to clipboard</span>
+  <div id="toast" class="fixed top-6 right-6 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900/90 backdrop-blur-2xl border border-cyan-500/40 text-white shadow-2xl text-xs font-mono">
+    <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+      <i data-lucide="check" class="w-3.5 h-3.5"></i>
+    </div>
+    <span id="toast-msg">Email copied to clipboard!</span>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       SPLIT-SCREEN SENIOR ENGINEER DOSSIER LAYOUT
-       ══════════════════════════════════════════════════════ -->
-  <div class="relative z-10 max-w-screen-xl mx-auto px-6 md:px-12 lg:px-24">
-    <div class="lg:flex lg:justify-between lg:gap-16">
+  <!-- TOP HUD TELEMETRY BAR -->
+  <div class="relative z-20 border-b border-white/[0.06] bg-[#040711]/60 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-11 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>CLUSTER ONLINE</span>
+        </span>
+        <span class="text-zinc-600 hidden sm:inline">|</span>
+        <span class="text-zinc-400 hidden sm:inline" id="live-time">Bengaluru, IN (IST)</span>
+      </div>
 
-      <!-- ── FIXED LEFT SIDEBAR (Desktop) ────────────────── -->
-      <aside class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24 py-16">
-        
-        <div>
-          <!-- Identity -->
-          <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white">
-            <a href="/">Satwik Chunduru</a>
-          </h1>
-          
-          <h2 class="mt-3 text-lg sm:text-xl font-medium tracking-tight text-slate-200">
-            DevOps & Cloud Platform Engineer
-          </h2>
-
-          <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-            I engineer reliable multi-cloud Kubernetes platforms, Terraform automation, and enterprise CI/CD systems at ANZ Banking Group.
-          </p>
-
-          <!-- Live Availability Status -->
-          <div class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-mono text-slate-300">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Bengaluru, India · Open for Cloud Roles</span>
-          </div>
-
-          <!-- Quick Stats Pill Grid -->
-          <div class="grid grid-cols-2 gap-3 mt-8 max-w-xs font-mono text-xs">
-            <div class="p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <div class="text-white font-bold text-base">600+</div>
-              <div class="text-[11px] text-slate-400">Repos Cutover</div>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <div class="text-white font-bold text-base">8.96 / 10</div>
-              <div class="text-[11px] text-slate-400">B.Tech GPA</div>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <div class="text-white font-bold text-base">9 Squads</div>
-              <div class="text-[11px] text-slate-400">CI/CD Scope</div>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <div class="text-white font-bold text-base">IEEE</div>
-              <div class="text-[11px] text-slate-400">Published Author</div>
-            </div>
-          </div>
-
-          <!-- SCROLLSPY NAVIGATION (Desktop Only) -->
-          <nav class="hidden lg:block mt-14" aria-label="In-page navigation">
-            <ul class="space-y-4 text-xs font-mono tracking-widest uppercase">
-              <li>
-                <a href="#about" class="nav-link group flex items-center py-1 active" data-section="about">
-                  <span class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-white"></span>
-                  <span class="text-slate-500 group-hover:text-white transition-colors">01. About</span>
-                </a>
-              </li>
-              <li>
-                <a href="#projects" class="nav-link group flex items-center py-1" data-section="projects">
-                  <span class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-white"></span>
-                  <span class="text-slate-500 group-hover:text-white transition-colors">02. Featured Systems</span>
-                </a>
-              </li>
-              <li>
-                <a href="#case-study" class="nav-link group flex items-center py-1" data-section="case-study">
-                  <span class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-white"></span>
-                  <span class="text-slate-500 group-hover:text-white transition-colors">03. ANZ Case Study</span>
-                </a>
-              </li>
-              <li>
-                <a href="#experience" class="nav-link group flex items-center py-1" data-section="experience">
-                  <span class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-white"></span>
-                  <span class="text-slate-500 group-hover:text-white transition-colors">04. Experience</span>
-                </a>
-              </li>
-              <li>
-                <a href="#research" class="nav-link group flex items-center py-1" data-section="research">
-                  <span class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-white"></span>
-                  <span class="text-slate-500 group-hover:text-white transition-colors">05. Research & Edu</span>
-                </a>
-              </li>
-              <li>
-                <a href="#arsenal" class="nav-link group flex items-center py-1" data-section="arsenal">
-                  <span class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-white"></span>
-                  <span class="text-slate-500 group-hover:text-white transition-colors">06. Skills Arsenal</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <!-- Social Icons & Contact Links -->
-        <div class="mt-8 lg:mt-0 pt-4 flex items-center gap-4 text-slate-400">
-          <a href="https://github.com/Satwik1209" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" title="GitHub">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          </a>
-          <a href="https://linkedin.com/in/satwik-chunduru-29b47223b" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" title="LinkedIn">
-            <i data-lucide="linkedin" class="w-5 h-5"></i>
-          </a>
-          <button onclick="copyEmail()" class="hover:text-white transition-colors" title="Copy Email">
-            <i data-lucide="mail" class="w-5 h-5"></i>
-          </button>
-          <a href="tel:+916362661224" class="hover:text-white transition-colors" title="Phone">
-            <i data-lucide="phone" class="w-5 h-5"></i>
-          </a>
-          <a href="resume.pdf" download="Satwik_Chunduru_DevOps_Resume.pdf" class="ml-2 px-3 py-1 rounded-md bg-white text-zinc-950 font-mono text-xs font-bold hover:bg-slate-200 transition-colors flex items-center gap-1.5" title="Download Resume">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-            <span>Resume</span>
-          </a>
-        </div>
-
-      </aside>
-
-      <!-- ── SCROLLABLE RIGHT CONTENT (Desktop) ───────────── -->
-      <main class="lg:w-1/2 lg:py-24 pb-20 space-y-24">
-
-        <!-- SECTION 1: ABOUT -->
-        <section id="about" class="space-y-4 text-sm leading-relaxed text-slate-400">
-          <div class="lg:hidden text-xs font-mono uppercase tracking-widest text-slate-200 mb-2">01. About</div>
-          
-          <p>
-            I am a DevOps Engineer at <strong class="text-white font-medium">Australia and New Zealand Banking Group (ANZ)</strong>, where I build and secure the foundational infrastructure supporting engineering squads across AU and NZ.
-          </p>
-          
-          <p>
-            My core focus is at the intersection of <strong class="text-slate-200 font-medium">Kubernetes orchestration</strong>, <strong class="text-slate-200 font-medium">Terraform Infrastructure as Code</strong>, and zero-trust CI/CD pipelines. At ANZ, I led the programmatic cutover of <strong class="text-sky-400 font-medium">600+ mission-critical banking repositories</strong> from on-premise GitHub Enterprise Server to GitHub Enterprise Cloud with zero downtime and complete DAG preservation.
-          </p>
-
-          <p>
-            Previously, I interned at <strong class="text-slate-200 font-medium">Continental Autonomous Mobility</strong> benchmarking vehicle cryptographic algorithms (AES-256 vs RSA-2048) on embedded ECUs. I hold a B.Tech in Cyber Security from Dayananda Sagar University (<strong class="text-emerald-400 font-mono font-medium">GPA 8.96 / 10</strong>) and authored peer-reviewed AI deepfake detection research published in IEEE Xplore.
-          </p>
-        </section>
-
-        <!-- SECTION 2: FEATURED SYSTEMS & PROJECTS -->
-        <section id="projects" class="space-y-8">
-          <div class="lg:hidden text-xs font-mono uppercase tracking-widest text-slate-200">02. Featured Systems</div>
-
-          <div class="space-y-10">
-
-            <!-- System 1: GitOps Platform -->
-            <div class="project-card rounded-2xl p-6 space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-mono font-semibold text-emerald-400 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span>Kubernetes & GitOps</span>
-                </span>
-                <a href="https://github.com/Satwik1209/enterprise-gitops-platform" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors" title="GitHub Repository">
-                  <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-                </a>
-              </div>
-
-              <h3 class="text-base font-semibold text-white">
-                <a href="https://github.com/Satwik1209/enterprise-gitops-platform" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">
-                  Enterprise Cloud GitOps & Observability Platform
-                </a>
-              </h3>
-
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Architected automated GitOps deployment platform using multi-stage rootless Docker, Terraform-provisioned private GKE with Cloud NAT, and full Prometheus & Grafana RED telemetry with Alertmanager routing. Features automated Trivy container vulnerability scanning in GitHub Actions CI.
-              </p>
-
-              <div class="flex flex-wrap gap-1.5 font-mono text-[11px] pt-1">
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-sky-300">Kubernetes (GKE)</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-purple-300">Terraform</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-amber-300">Prometheus RED</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-emerald-300">Docker</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">Trivy</span>
-              </div>
-            </div>
-
-            <!-- System 2: Multi-Cloud DevSecOps -->
-            <div class="project-card rounded-2xl p-6 space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-mono font-semibold text-indigo-400 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
-                  <span>Multi-Cloud & DevSecOps</span>
-                </span>
-                <a href="https://github.com/Satwik1209/cloud-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors" title="GitHub Repository">
-                  <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-                </a>
-              </div>
-
-              <h3 class="text-base font-semibold text-white">
-                <a href="https://github.com/Satwik1209/cloud-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">
-                  Automated Multi-Cloud Infrastructure & DevSecOps Pipeline
-                </a>
-              </h3>
-
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Engineered modular Terraform provisioning secure multi-AZ AWS (VPC, KMS-encrypted S3, IAM) and GCP environments. Implemented credential-less OIDC Workload Identity federation for GitHub Actions (zero static keys), S3 remote backend with DynamoDB distributed state locking, and Checkov CIS policy gates.
-              </p>
-
-              <div class="flex flex-wrap gap-1.5 font-mono text-[11px] pt-1">
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-amber-300">AWS VPC & S3</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-blue-300">GCP OIDC</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-purple-300">Terraform</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-rose-300">Checkov</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">DynamoDB Lock</span>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- SECTION 3: ANZ CASE STUDY -->
-        <section id="case-study" class="space-y-4">
-          <div class="lg:hidden text-xs font-mono uppercase tracking-widest text-slate-200">03. Enterprise Case Study</div>
-
-          <div class="rounded-2xl p-6 bg-slate-900/40 border border-slate-800/80 space-y-4">
-            <div class="flex items-center justify-between text-xs font-mono text-sky-400">
-              <span>ANZ BANKING GROUP</span>
-              <span>JUL 2025 — PRESENT</span>
-            </div>
-
-            <h3 class="text-lg font-bold text-white">
-              600+ Enterprise Repository Cloud Migration & CI/CD Modernization
-            </h3>
-
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Programmatically executed the cutover of 600+ mission-critical banking repositories from on-premise GitHub Enterprise Server (GHES) to GitHub Enterprise Cloud (GHEC) across 9 engineering squads with zero DAG loss.
-            </p>
-
-            <ul class="space-y-2.5 text-xs text-slate-400 leading-relaxed">
-              <li class="flex items-start gap-2">
-                <span class="text-sky-400 font-mono text-xs">01.</span>
-                <span><strong>Automated Pre-Flight & Cutover:</strong> Programmed Bash and REST API automation to crawl webhooks, branch protection policies, and LFS assets, ensuring programmatic parity before and after cutover windows.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-sky-400 font-mono text-xs">02.</span>
-                <span><strong>Pipeline Modernization:</strong> Replaced fragmented Codefresh and uDeploy scripts with reusable GitHub Actions workflows with externalized <code class="text-slate-200 bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">.config</code> files across DEV, SIT, QA, and PROD stages.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-sky-400 font-mono text-xs">03.</span>
-                <span><strong>Zero-Trust GKE Rollouts:</strong> Eliminated long-lived service account keys by configuring GCP Workload Identity with CDAP authentication; verified multi-microservice rollouts via automated health probes.</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- SECTION 4: WORK EXPERIENCE -->
-        <section id="experience" class="space-y-8">
-          <div class="lg:hidden text-xs font-mono uppercase tracking-widest text-slate-200">04. Experience</div>
-
-          <div class="space-y-8">
-            
-            <!-- Role 1: ANZ -->
-            <div class="space-y-2">
-              <div class="flex items-baseline justify-between">
-                <h3 class="text-sm font-semibold text-white">
-                  DevOps Engineer <span class="text-slate-400 font-normal">· ANZ Banking Group</span>
-                </h3>
-                <span class="text-xs font-mono text-slate-500">Jul 2025 — Present</span>
-              </div>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Lead CI/CD pipeline automation, artifact governance via JFrog Artifactory, containerized deployment orchestration on Kubernetes (GKE), and bank-wide secret scanning / push protection enforcement across 9 squads.
-              </p>
-              <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-slate-400 pt-1">
-                <span>GitHub Actions</span> · <span>GKE</span> · <span>Terraform</span> · <span>Workload Identity</span> · <span>JFrog</span> · <span>Docker</span>
-              </div>
-            </div>
-
-            <!-- Role 2: Continental -->
-            <div class="space-y-2">
-              <div class="flex items-baseline justify-between">
-                <h3 class="text-sm font-semibold text-white">
-                  Student Intern <span class="text-slate-400 font-normal">· Continental Autonomous Mobility</span>
-                </h3>
-                <span class="text-xs font-mono text-slate-500">Aug 2024 — Nov 2024</span>
-              </div>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Automotive embedded systems security. Developed an automated Python and Power BI compliance dashboard and conducted empirical cryptographic benchmarking analyzing AES-256 vs RSA-2048 encryption throughput and latency on microcontrollers.
-              </p>
-              <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-slate-400 pt-1">
-                <span>Python</span> · <span>Power BI</span> · <span>AES-256</span> · <span>RSA-2048</span> · <span>Embedded Security</span>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- SECTION 5: RESEARCH & EDUCATION -->
-        <section id="research" class="space-y-6">
-          <div class="lg:hidden text-xs font-mono uppercase tracking-widest text-slate-200">05. Research & Education</div>
-
-          <div class="space-y-6 text-xs text-slate-400">
-            <!-- IEEE Publication -->
-            <div class="space-y-1.5 p-4 rounded-xl bg-slate-900/30 border border-slate-800/80">
-              <div class="flex justify-between text-slate-400 font-mono text-[11px]">
-                <span class="text-purple-400">IEEE ICCIST 2025/2026</span>
-                <span>Dec 2025</span>
-              </div>
-              <h4 class="text-sm font-medium text-white">
-                "Deepfake Image Content Detections using AI Algorithms: A Survey and Analysis"
-              </h4>
-              <p class="leading-relaxed">
-                Co-authored peer-reviewed research surveying facial manipulation detection across CNN, EfficientNet, and ResNet architectures. Recognized by IEEE conference committee and indexed in IEEE Xplore.
-              </p>
-            </div>
-
-            <!-- Education -->
-            <div class="space-y-2 pt-2">
-              <div class="flex justify-between items-baseline">
-                <div>
-                  <div class="text-sm font-medium text-white">Dayananda Sagar University, Bengaluru</div>
-                  <div class="text-slate-400">B.Tech in Computer Science & Engineering (Cyber Security)</div>
-                </div>
-                <span class="font-mono text-emerald-400 font-semibold">GPA 8.96 / 10</span>
-              </div>
-              <div class="flex justify-between text-slate-400 font-mono text-[11px] pt-1 border-t border-slate-800">
-                <span>ServiceNow CAD & CSA Certified</span>
-                <span>Class XII: 92.3% · Class X: 93.8%</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SECTION 6: SKILLS ARSENAL -->
-        <section id="arsenal" class="space-y-4">
-          <div class="lg:hidden text-xs font-mono uppercase tracking-widest text-slate-200">06. Skills Arsenal</div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/80 space-y-1">
-              <div class="text-white font-semibold text-[11px]">Cloud & Orchestration</div>
-              <div class="text-slate-400">Kubernetes (GKE/EKS), Terraform (IaC), AWS (VPC, S3, IAM), GCP, Docker, Helm</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/80 space-y-1">
-              <div class="text-white font-semibold text-[11px]">CI/CD & DevSecOps</div>
-              <div class="text-slate-400">GitHub Actions, JFrog Artifactory, OIDC STS, Checkov, Trivy, Prometheus, Grafana</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/80 space-y-1">
-              <div class="text-white font-semibold text-[11px]">Languages & Scripting</div>
-              <div class="text-slate-400">Bash / POSIX Shell, Python, PowerShell, Java Maven, SQL, REST APIs</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/80 space-y-1">
-              <div class="text-white font-semibold text-[11px]">Governance & Process</div>
-              <div class="text-slate-400">Secret Scanning, Dependabot, Linux (RHEL/Ubuntu), RCA, Agile/Scrum</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="pt-8 text-xs font-mono text-slate-500 border-t border-slate-800 flex flex-col sm:flex-row justify-between gap-2">
-          <div>© 2026 Satwik Chunduru · Bengaluru, India</div>
-          <div>Built with precision & zero marketing fluff</div>
-        </footer>
-
-      </main>
-
+      <div class="flex items-center gap-4">
+        <span>600+ Repos Synced</span>
+        <span class="text-zinc-600">|</span>
+        <span class="text-cyan-400 font-semibold">ANZ Platform Engineering</span>
+      </div>
     </div>
   </div>
 
-  <!-- Lucide & ScrollSpy Script -->
+  <!-- MAIN NAVIGATION -->
+  <header class="relative z-20 max-w-6xl mx-auto px-6 pt-6">
+    <div class="p-3.5 px-6 rounded-2xl glass-tile flex items-center justify-between shadow-2xl">
+      <!-- Identity -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center font-mono font-bold text-slate-950 text-sm shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-transform">
+          SC
+        </div>
+        <div>
+          <div class="font-bold text-sm tracking-tight text-white group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+            Satwik Chunduru
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              Active
+            </span>
+          </div>
+          <div class="text-[11px] font-mono text-zinc-400">DevOps & Cloud Platform Engineer</div>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-zinc-300">
+        <a href="#interactive-lab" class="hover:text-cyan-400 transition-colors">Live Architecture</a>
+        <a href="#systems" class="hover:text-cyan-400 transition-colors">Systems</a>
+        <a href="#case-study" class="hover:text-cyan-400 transition-colors">ANZ Migration</a>
+        <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
+        <a href="#research" class="hover:text-cyan-400 transition-colors">Research</a>
+      </nav>
+
+      <!-- Utilities -->
+      <div class="flex items-center gap-2.5">
+        <a href="resume.pdf" download="Satwik_Chunduru_DevOps_Resume.pdf" class="px-3.5 py-1.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-xs font-mono text-zinc-200 hover:text-white transition-all flex items-center gap-1.5 shadow-sm">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>CV</span>
+        </a>
+        <a href="mailto:satwikchunduru10@gmail.com" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-bold text-xs transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-1.5">
+          <span>Get in Touch</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="relative z-20 max-w-6xl mx-auto px-6 pt-16 pb-28 space-y-24">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="space-y-6 pt-4">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Pitch -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-300">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>Enterprise Multi-Cloud Infrastructure & GitOps</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1]">
+            Engineering resilient <span class="text-gradient-cyan">cloud platforms</span> & automated infrastructure.
+          </h1>
+
+          <p class="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl">
+            DevOps Engineer at <strong class="text-white">ANZ Banking Group</strong> specializing in Kubernetes (GKE/EKS), Terraform IaC, and zero-trust CI/CD systems. Programmatically migrated <strong class="text-cyan-300 font-semibold">600+ enterprise repositories</strong> with zero DAG loss. IEEE-published researcher with an <strong class="text-emerald-400 font-semibold font-mono">8.96 GPA</strong> in Cyber Security.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <button onclick="copyEmail()" class="px-4 py-2.5 rounded-xl bg-white hover:bg-zinc-200 text-slate-950 font-bold text-xs font-mono transition-all shadow-xl shadow-white/10 flex items-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4 text-slate-950"></i>
+              <span>satwikchunduru10@gmail.com</span>
+            </button>
+            <a href="tel:+916362661224" class="px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-zinc-200 font-mono text-xs transition-all flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
+              <span>+91 6362661224</span>
+            </a>
+          </div>
+
+          <!-- Proof Metrics -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/[0.06] font-mono">
+            <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.05]">
+              <div class="text-2xl font-bold text-white">600+</div>
+              <div class="text-[10px] text-cyan-400 uppercase tracking-wider mt-0.5">Repos Cutover</div>
+              <div class="text-[10px] text-zinc-400">Zero Data Loss</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.05]">
+              <div class="text-2xl font-bold text-white">9 Squads</div>
+              <div class="text-[10px] text-indigo-400 uppercase tracking-wider mt-0.5">CI/CD Scope</div>
+              <div class="text-[10px] text-zinc-400">AU & NZ Core</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.05]">
+              <div class="text-2xl font-bold text-white">8.96</div>
+              <div class="text-[10px] text-emerald-400 uppercase tracking-wider mt-0.5">B.Tech GPA</div>
+              <div class="text-[10px] text-zinc-400">Cyber Security</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.05]">
+              <div class="text-2xl font-bold text-white">IEEE</div>
+              <div class="text-[10px] text-purple-400 uppercase tracking-wider mt-0.5">Published</div>
+              <div class="text-[10px] text-zinc-400">Deepfake Forensics</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Terminal -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl overflow-hidden border border-white/[0.1] bg-[#070b16]/90 backdrop-blur-2xl shadow-2xl">
+            <!-- Terminal Titlebar -->
+            <div class="px-4 py-3 bg-[#0a1020] border-b border-white/[0.06] flex items-center justify-between text-xs font-mono">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                <span class="text-zinc-400 ml-1">satwik@anz-platform</span>
+              </div>
+              <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                PROD ACTIVE
+              </span>
+            </div>
+
+            <!-- Terminal Output -->
+            <div class="p-5 font-mono text-xs leading-relaxed space-y-3.5 text-zinc-300">
+              <div>
+                <span class="text-cyan-400">satwik@anz</span>:<span class="text-blue-400">~</span>$ kubectl get nodes -o wide
+              </div>
+              <div class="text-zinc-400 pl-2 border-l border-cyan-500/30 text-[11px] space-y-0.5">
+                <div>gke-prod-au-pool-01  <span class="text-emerald-400 font-semibold">Ready</span>  v1.30.2-gke</div>
+                <div>gke-prod-nz-pool-02  <span class="text-emerald-400 font-semibold">Ready</span>  v1.30.2-gke</div>
+              </div>
+
+              <div>
+                <span class="text-cyan-400">satwik@anz</span>:<span class="text-blue-400">~</span>$ terraform state list | grep -E "vpc|iam"
+              </div>
+              <div class="text-zinc-400 pl-2 border-l border-indigo-500/30 text-[11px] space-y-0.5">
+                <div>module.vpc.aws_vpc.main <span class="text-zinc-500">[Multi-AZ]</span></div>
+                <div>module.iam_oidc.aws_iam_role [OIDC STS]</div>
+              </div>
+
+              <div>
+                <span class="text-cyan-400">satwik@anz</span>:<span class="text-blue-400">~</span>$ gh enterprise migration --status
+              </div>
+              <div class="text-cyan-300 pl-2 border-l border-emerald-500/30 text-[11px]">
+                <div class="text-emerald-400">✔ 600/600 Repositories Synced to GHEC</div>
+                <div class="text-zinc-400">✔ Complete Commit DAGs & Webhooks Preserved</div>
+              </div>
+
+              <div class="pt-2 flex items-center gap-2 text-zinc-500">
+                <span class="text-cyan-400">satwik@anz</span>:<span class="text-blue-400">~</span>$ 
+                <span class="w-2 h-4 bg-cyan-400 animate-pulse inline-block"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         INTERACTIVE LIVE ARCHITECTURE SANDBOX
+         ══════════════════════════════════════════════════════ -->
+    <section id="interactive-lab" class="space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono mb-2">
+            <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+            <span>LIVE TELEMETRY LAB</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Live Architecture & Telemetry Visualizer
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-zinc-400">
+          Click tabs to inspect live telemetry & topology
+        </p>
+      </div>
+
+      <div class="glass-tile p-6 sm:p-8 space-y-6">
+        
+        <!-- Tabs -->
+        <div class="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-black/40 border border-white/[0.06]">
+          <button onclick="switchTab('gitops')" id="tab-gitops" class="tab-btn active px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all flex items-center gap-2 text-zinc-400 hover:text-white">
+            <i data-lucide="gauge" class="w-4 h-4"></i>
+            <span>1. GitOps & RED Telemetry</span>
+          </button>
+          <button onclick="switchTab('multicloud')" id="tab-multicloud" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all flex items-center gap-2 text-zinc-400 hover:text-white">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>2. Multi-Cloud OIDC Engine</span>
+          </button>
+          <button onclick="switchTab('migration')" id="tab-migration" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all flex items-center gap-2 text-zinc-400 hover:text-white">
+            <i data-lucide="git-merge" class="w-4 h-4"></i>
+            <span>3. ANZ 600+ Cutover Pipeline</span>
+          </button>
+        </div>
+
+        <!-- TAB 1: GITOPS -->
+        <div id="content-gitops" class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06]">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>Prometheus RED Telemetry & GKE Rollouts</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+              </h3>
+              <p class="text-xs text-zinc-400 mt-0.5">Real-time Rate, Errors, and Duration tracking across GKE microservices.</p>
+            </div>
+            <a href="https://github.com/Satwik1209/enterprise-gitops-platform" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-cyan-400 hover:underline flex items-center gap-1">
+              <span>View GitOps Repo</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-black/40 border border-white/[0.06]">
+              <div class="text-[10px] font-mono text-zinc-500 uppercase">Throughput (Rate)</div>
+              <div class="text-2xl font-bold font-mono text-cyan-400 mt-1 flex items-baseline gap-1">
+                <span id="metric-rate">1,480</span> <span class="text-xs text-zinc-400">req/s</span>
+              </div>
+              <div class="text-[11px] text-zinc-400 mt-1">Multi-stage rootless Docker pods</div>
+            </div>
+            <div class="p-4 rounded-xl bg-black/40 border border-white/[0.06]">
+              <div class="text-[10px] font-mono text-zinc-500 uppercase">Error Rate (Errors)</div>
+              <div class="text-2xl font-bold font-mono text-emerald-400 mt-1 flex items-baseline gap-1">
+                <span>0.002%</span> <span class="text-xs text-zinc-400">5xx rate</span>
+              </div>
+              <div class="text-[11px] text-zinc-400 mt-1">Alertmanager trigger threshold: &gt; 1%</div>
+            </div>
+            <div class="p-4 rounded-xl bg-black/40 border border-white/[0.06]">
+              <div class="text-[10px] font-mono text-zinc-500 uppercase">p99 Latency (Duration)</div>
+              <div class="text-2xl font-bold font-mono text-indigo-400 mt-1 flex items-baseline gap-1">
+                <span id="metric-latency">38.4</span> <span class="text-xs text-zinc-400">ms</span>
+              </div>
+              <div class="text-[11px] text-zinc-400 mt-1">Private GKE with Cloud NAT</div>
+            </div>
+          </div>
+
+          <!-- SVG Waveform -->
+          <div class="p-4 rounded-xl bg-black/50 border border-white/[0.06] space-y-2">
+            <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+              <span class="flex items-center gap-2 text-cyan-400">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span>Live Cluster Ingress Telemetry Waveform</span>
+              </span>
+              <span>Updated real-time</span>
+            </div>
+            <svg class="w-full h-24 stroke-cyan-400 fill-none" viewBox="0 0 500 100" preserveAspectRatio="none">
+              <path d="M0,50 Q60,20 120,60 T240,40 T360,70 T500,45" stroke-width="2.5" stroke-linecap="round"></path>
+              <path d="M0,50 Q60,20 120,60 T240,40 T360,70 T500,45 L500,100 L0,100 Z" fill="rgba(0, 242, 254, 0.08)" stroke="none"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- TAB 2: MULTI-CLOUD -->
+        <div id="content-multicloud" class="space-y-5 hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06]">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>Zero-Trust OIDC Federation & State Locking</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Passwordless</span>
+              </h3>
+              <p class="text-xs text-zinc-400 mt-0.5">STS AssumeRole with WebIdentity + S3/DynamoDB distributed mutex locking.</p>
+            </div>
+            <a href="https://github.com/Satwik1209/cloud-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-cyan-400 hover:underline flex items-center gap-1">
+              <span>View DevSecOps Repo</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+            <div class="p-4 rounded-xl bg-black/40 border border-white/[0.06] space-y-2">
+              <div class="text-amber-400 font-bold flex items-center gap-1.5">
+                <i data-lucide="key" class="w-4 h-4"></i>
+                <span>AWS IAM OIDC Provider</span>
+              </div>
+              <p class="text-zinc-300 font-sans text-xs">
+                GitHub actions runner requests short-lived JWT token; exchanged via AWS STS for 1-hour credentials. Zero static AWS secrets stored in repository.
+              </p>
+              <div class="text-[11px] text-zinc-500">repo:Satwik1209/cloud-devsecops-pipeline:*</div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-black/40 border border-white/[0.06] space-y-2">
+              <div class="text-cyan-400 font-bold flex items-center gap-1.5">
+                <i data-lucide="lock" class="w-4 h-4"></i>
+                <span>DynamoDB State Lock</span>
+              </div>
+              <p class="text-zinc-300 font-sans text-xs">
+                Concurrent CI executions acquire distributed MD5 mutex lock before applying plans to encrypted S3 remote backend. Prevents state corruption.
+              </p>
+              <div class="text-[11px] text-zinc-500">Partition Key: LockID (String)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: ANZ MIGRATION -->
+        <div id="content-migration" class="space-y-5 hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06]">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>600+ Repo Cutover & GHEC Parity Engine</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Production Banking</span>
+              </h3>
+              <p class="text-xs text-zinc-400 mt-0.5">Automated DAG verification, branch protection migration, and Artifactory publishing.</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-black/40 border border-white/[0.06] space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-zinc-300">Live Cutover Simulator:</span>
+              <button onclick="simulateMigration()" id="sim-btn" class="px-3.5 py-1.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs font-mono transition-all">
+                Run Simulation
+              </button>
+            </div>
+
+            <div class="w-full bg-zinc-800 rounded-full h-3 overflow-hidden">
+              <div id="sim-progress" class="bg-gradient-to-r from-cyan-400 to-emerald-400 h-3 rounded-full transition-all duration-300" style="width: 100%;"></div>
+            </div>
+
+            <div id="sim-status" class="text-xs font-mono text-emerald-400 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>Status: 600 of 600 Repositories Programmatically Migrated · Zero DAG loss</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         FEATURED PLATFORMS SHOWCASE
+         ══════════════════════════════════════════════════════ -->
+    <section id="systems" class="space-y-6">
+      
+      <div class="flex items-baseline justify-between">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Featured Engineering Platforms
+        </h2>
+        <span class="text-xs font-mono text-zinc-400">Complete Code on GitHub</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- System 1 -->
+        <div class="glass-tile p-7 sm:p-8 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>GitOps & Kubernetes</span>
+              </span>
+              <a href="https://github.com/Satwik1209/enterprise-gitops-platform" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-zinc-300 hover:text-white transition-all">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+              Enterprise Cloud GitOps & Observability Platform
+            </h3>
+
+            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+              Automated GitOps pipeline with rootless Docker microservices, Terraform-provisioned private GKE with Cloud NAT, and Prometheus & Grafana RED telemetry with Alertmanager routing and Trivy vulnerability gates.
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] pt-2">
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">GKE Cluster</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-purple-300 border border-white/[0.06]">Terraform</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-amber-300 border border-white/[0.06]">Prometheus RED</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-emerald-300 border border-white/[0.06]">Docker</span>
+            </div>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between">
+            <span class="text-xs font-mono text-zinc-400">Satwik1209/enterprise-gitops-platform</span>
+            <a href="https://github.com/Satwik1209/enterprise-gitops-platform" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5">
+              <span>View Source</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- System 2 -->
+        <div class="glass-tile p-7 sm:p-8 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
+                <span>Multi-Cloud & DevSecOps</span>
+              </span>
+              <a href="https://github.com/Satwik1209/cloud-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-zinc-300 hover:text-white transition-all">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+              Automated Multi-Cloud Infrastructure & DevSecOps Pipeline
+            </h3>
+
+            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+              Modular Terraform provisioning secure multi-AZ AWS and GCP environments with zero static keys via GitHub Actions OIDC federation. Includes S3 & DynamoDB state locking and Checkov policy gates.
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] pt-2">
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-amber-300 border border-white/[0.06]">AWS VPC & S3</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-blue-300 border border-white/[0.06]">GCP OIDC</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-purple-300 border border-white/[0.06]">Terraform</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] text-rose-300 border border-white/[0.06]">Checkov</span>
+            </div>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between">
+            <span class="text-xs font-mono text-zinc-400">Satwik1209/cloud-devsecops-pipeline</span>
+            <a href="https://github.com/Satwik1209/cloud-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5">
+              <span>View Source</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         ANZ BANKING SCALE CASE STUDY
+         ══════════════════════════════════════════════════════ -->
+    <section id="case-study" class="space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono mb-2">
+            <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+            <span>BANKING SCALE CASE STUDY</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            600+ Repository Cloud Migration & CI/CD Modernization
+          </h2>
+        </div>
+        <span class="text-xs font-mono text-zinc-400">ANZ Banking Group</span>
+      </div>
+
+      <div class="glass-tile p-8 sm:p-10 space-y-6">
+        <div>
+          <h3 class="text-xs font-mono uppercase tracking-wider text-cyan-400 mb-2">The Operational Challenge</h3>
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-4xl">
+            ANZ's engineering squads operated across legacy on-premises GitHub Enterprise Server (GHES) instances with fragmented deployment scripts (Codefresh, uDeploy) and manual validation gates. Transitioning 600+ repositories to GitHub Enterprise Cloud (GHEC) required strict zero-downtime cutovers, cryptographic commit DAG preservation, and immediate compliance with bank-wide DevSecOps governance.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-6 border-t border-white/[0.08]">
+          <div class="p-4 rounded-xl bg-black/30 border border-white/[0.05] space-y-2">
+            <div class="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs">01</div>
+            <h4 class="text-sm font-bold text-white">Pre-Flight API Auditing</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Programmed automated Bash and REST API crawlers to inventory repo sizes, LFS assets, branch protection rules, and webhook dependencies.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/30 border border-white/[0.05] space-y-2">
+            <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-mono font-bold text-xs">02</div>
+            <h4 class="text-sm font-bold text-white">CI/CD Re-Architecture</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Modernized heterogeneous deployment pipelines into reusable GitHub Actions workflows with externalized config files across DEV, SIT, QA, and PROD stages.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-black/30 border border-white/[0.05] space-y-2">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs">03</div>
+            <h4 class="text-sm font-bold text-white">Zero-Trust GKE Delivery</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Eliminated long-lived service account keys by configuring GCP Workload Identity federation with CDAP authentication across AU & NZ clusters.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         WORK EXPERIENCE
+         ══════════════════════════════════════════════════════ -->
+    <section id="experience" class="space-y-6">
+      
+      <div class="flex items-baseline justify-between">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Work Experience
+        </h2>
+        <span class="text-xs font-mono text-zinc-400">Production Proven</span>
+      </div>
+
+      <div class="space-y-5">
+        
+        <!-- ANZ Role -->
+        <div class="glass-tile p-7 sm:p-8 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06]">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>DevOps Engineer</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono font-medium">Core Banking</span>
+              </h3>
+              <div class="text-xs font-mono text-cyan-400 mt-1">
+                Australia and New Zealand Banking Group (ANZ)
+              </div>
+            </div>
+            <span class="text-xs font-mono text-zinc-400 bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/[0.06] self-start sm:self-auto">
+              Jul 2025 — Present · Bengaluru
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+            Leading CI/CD automation, cloud tooling governance, and enterprise repository modernization across 9 squads within platform engineering.
+          </p>
+
+          <ul class="space-y-2 text-xs text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+              <span><strong>600+ Repository Cloud Cutover:</strong> Led the programmatic migration of 600+ mission-critical banking repos from GHES to GitHub Enterprise Cloud using Bash and REST APIs with zero DAG loss.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+              <span><strong>Workflow Re-Architecture:</strong> Modernized legacy Codefresh & uDeploy into modular GitHub Actions with externalized <code class="text-zinc-200 bg-white/10 px-1 py-0.5 rounded font-mono text-[11px]">.config</code> files across DEV, SIT, QA, and PROD clusters.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+              <span><strong>Zero-Trust GKE:</strong> Deployed containerized applications using Helm charts, Workload Identity Federation, and automated rollout verification.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Continental Role -->
+        <div class="glass-tile p-7 sm:p-8 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06]">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>Student Intern — Autonomous Mobility</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono font-medium">Automotive</span>
+              </h3>
+              <div class="text-xs font-mono text-amber-400 mt-1">
+                Continental Automotive Components
+              </div>
+            </div>
+            <span class="text-xs font-mono text-zinc-400 bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/[0.06] self-start sm:self-auto">
+              Aug 2024 — Nov 2024 · Bengaluru
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+            Automotive embedded systems security, cryptographic benchmarking on vehicle microcontrollers, and engineering compliance automation.
+          </p>
+
+          <ul class="space-y-2 text-xs text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+              <span><strong>Security Requirements Dashboard:</strong> Built an automated Python and Power BI management tool to ingest, categorize, and monitor cyber security compliance specifications.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+              <span><strong>Cryptographic Benchmarking (AES vs. RSA):</strong> Benchmarked symmetric AES-256 vs. asymmetric RSA-2048 encryption throughput and latency on vehicle hardware.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         ACADEMIC RESEARCH & CREDENTIALS
+         ══════════════════════════════════════════════════════ -->
+    <section id="research" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- IEEE Paper -->
+      <div class="glass-tile p-7 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+          <span class="text-xs font-mono text-purple-400 font-semibold uppercase">IEEE Conference Publication</span>
+          <span class="text-xs font-mono text-emerald-400">ICCIST 2025/2026</span>
+        </div>
+        <h3 class="text-base font-bold text-white leading-snug">
+          "Deepfake Image Content Detections using AI Algorithms: A Survey and Analysis"
+        </h3>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          Co-authored peer-reviewed research surveying spatial and frequency-domain facial manipulation detection across CNN, EfficientNet, and ResNet architectures. Indexed in IEEE Xplore.
+        </p>
+        <div class="pt-2 text-xs font-mono text-zinc-400 flex items-center gap-3">
+          <span>Publisher: <strong class="text-white">IEEE</strong></span>
+          <span>Domain: <strong class="text-cyan-400">Media Forensics</strong></span>
+        </div>
+      </div>
+
+      <!-- Education & Certs -->
+      <div class="glass-tile p-7 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+          <span class="text-xs font-mono text-cyan-400 font-semibold uppercase">Education & Honors</span>
+          <span class="text-xs font-mono text-emerald-400 font-bold">GPA: 8.96 / 10</span>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">Dayananda Sagar University, Bengaluru</div>
+          <div class="text-xs text-zinc-400 mt-0.5">B.Tech in Computer Science & Engineering (Cyber Security) · 2021 — 2025</div>
+        </div>
+        <div class="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono">
+          <span class="text-zinc-300">ServiceNow CAD & CSA Certified</span>
+          <span class="text-emerald-400 font-semibold">Certified</span>
+        </div>
+        <div class="text-[11px] font-mono text-zinc-400">
+          Class XII: <strong class="text-white">92.3%</strong> · Class X: <strong class="text-white">93.8%</strong>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER / CONNECT -->
+    <footer class="pt-12 text-center space-y-6 border-t border-white/[0.06]">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        Let's build reliable cloud platforms.
+      </h2>
+      <p class="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
+        Open to high-impact DevOps, Cloud Platform, and DevSecOps engineering roles in Bengaluru or remote.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3.5">
+        <a href="mailto:satwikchunduru10@gmail.com" class="px-5 py-3 rounded-2xl bg-white hover:bg-zinc-200 text-slate-950 font-bold text-xs font-mono transition-all shadow-xl shadow-white/10 flex items-center gap-2">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span>satwikchunduru10@gmail.com</span>
+        </a>
+        <a href="https://linkedin.com/in/satwik-chunduru-29b47223b" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-zinc-200 font-semibold text-xs transition-all flex items-center gap-2">
+          <i data-lucide="linkedin" class="w-4 h-4 text-cyan-400"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/Satwik1209" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-zinc-200 font-semibold text-xs transition-all flex items-center gap-2">
+          <i data-lucide="github" class="w-4 h-4 text-purple-400"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+
+      <div class="text-xs font-mono text-zinc-500 pt-6">
+        © 2026 Satwik Chunduru · Bengaluru, India
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════
+       3D INTERACTIVE TOPOLOGY NETWORK CANVAS SCRIPT
+       ══════════════════════════════════════════════════════ -->
   <script>
     lucide.createIcons();
 
-    // Mouse Spotlight
+    // Live clock in Bengaluru
+    function updateTime() {
+      const el = document.getElementById('live-time');
+      if (el) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        el.innerText = `${timeStr} IST · Bengaluru, IN`;
+      }
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // 3D Interactive Nodal Topology Canvas
+    const canvas = document.getElementById('canvas-network');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initNodes();
+    });
+
+    let mouse = { x: width / 2, y: height / 2, radius: 180 };
+
     window.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
     });
 
-    // ScrollSpy: highlight active nav link on desktop scroll
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const NODE_COUNT = Math.floor((width * height) / 14000);
+    let nodes = [];
 
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= (sectionTop - 200)) {
-          current = section.getAttribute('id');
+    class Node {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.radius = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.4 ? 'rgba(0, 242, 254, ' : 'rgba(99, 102, 241, ';
+        this.alpha = Math.random() * 0.5 + 0.3;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // Mouse push / interaction
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          this.x -= (dx / dist) * force * 3;
+          this.y -= (dy / dist) * force * 3;
         }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color + this.alpha + ')';
+        ctx.shadowColor = '#00f2fe';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    function initNodes() {
+      nodes = [];
+      const count = Math.min(Math.floor((width * height) / 12000), 120);
+      for (let i = 0; i < count; i++) {
+        nodes.push(new Node());
+      }
+    }
+    initNodes();
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Connect nodes with lines
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 130) {
+            const alpha = (1 - dist / 130) * 0.22;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = `rgba(0, 242, 254, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Connect to mouse
+      for (let i = 0; i < nodes.length; i++) {
+        const dx = mouse.x - nodes[i].x;
+        const dy = mouse.y - nodes[i].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mouse.radius) {
+          const alpha = (1 - dist / mouse.radius) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0, 242, 254, ${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+
+      nodes.forEach(n => {
+        n.update();
+        n.draw();
       });
 
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-section') === current) {
-          link.classList.add('active');
+      requestAnimationFrame(render);
+    }
+    render();
+
+    // Tab Switcher
+    function switchTab(tabId) {
+      const tabs = ['gitops', 'multicloud', 'migration'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const content = document.getElementById(`content-${t}`);
+        if (t === tabId) {
+          btn.classList.add('active');
+          content.classList.remove('hidden');
+        } else {
+          btn.classList.remove('active');
+          content.classList.add('hidden');
         }
       });
-    });
+      lucide.createIcons();
+    }
 
-    // Copy Email Toast
+    // Telemetry Jitter
+    setInterval(() => {
+      const rateEl = document.getElementById('metric-rate');
+      const latencyEl = document.getElementById('metric-latency');
+      if (rateEl && latencyEl) {
+        const jitterRate = Math.floor(1450 + Math.random() * 80);
+        const jitterLatency = (37 + Math.random() * 3).toFixed(1);
+        rateEl.innerText = jitterRate.toLocaleString();
+        latencyEl.innerText = jitterLatency;
+      }
+    }, 2000);
+
+    // Migration Simulator
+    function simulateMigration() {
+      const bar = document.getElementById('sim-progress');
+      const status = document.getElementById('sim-status');
+      const btn = document.getElementById('sim-btn');
+      
+      btn.disabled = true;
+      btn.innerText = 'Syncing...';
+      bar.style.width = '0%';
+      status.innerHTML = `<span class="text-cyan-400">Syncing repositories & commit trees...</span>`;
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 20;
+        bar.style.width = `${progress}%`;
+        if (progress >= 100) {
+          clearInterval(interval);
+          status.innerHTML = `<span class="text-emerald-400">✔ 600/600 Repositories Programmatically Migrated · Zero DAG loss</span>`;
+          btn.disabled = false;
+          btn.innerText = 'Run Simulation';
+        }
+      }, 350);
+    }
+
+    // Copy Email
     function copyEmail() {
       navigator.clipboard.writeText('satwikchunduru10@gmail.com').then(() => {
         const toast = document.getElementById('toast');
